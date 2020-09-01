@@ -43,7 +43,7 @@ public class JobCategoryController {
             jobCategoryList = jobCategoryService.findAllJobCategories();
         }catch (ErrorResponse e){
             ErrorResponse.LogError(e);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(httpHeaders).body(null);
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(null);
         }
 
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jobCategoryList);

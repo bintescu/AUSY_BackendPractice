@@ -28,7 +28,7 @@ public class DepartmentController {
             departmentAdded = this.departmentService.addDepartment(department);
         }catch (ErrorResponse e){
             ErrorResponse.LogError(e);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).headers(httpHeaders).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(null);
         }
         return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(departmentAdded);
     }
@@ -45,7 +45,18 @@ public class DepartmentController {
         httpHeaders.add("Response","findAllDepartments");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(departmentList);
     }
-
+    @GetMapping("/findDepartmentById")
+    public ResponseEntity<Department> getAllDepartments(@RequestParam int id){
+        Department department = null;
+        try{
+            department = departmentService.findDepById(id);
+        }catch (ErrorResponse e){
+            ErrorResponse.LogError(e);
+        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","findDepartmentById");
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(department);
+    }
     @DeleteMapping("/deleteDepartment")
     public ResponseEntity<String> deleteDepartment(@RequestParam int id){
         HttpHeaders httpHeaders = new HttpHeaders();
