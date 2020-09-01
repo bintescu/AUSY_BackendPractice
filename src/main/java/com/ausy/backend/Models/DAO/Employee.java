@@ -74,7 +74,7 @@ public class Employee {
         return jobCategory;
     }
 
-    public void setJobCategoryId(JobCategory jobCategoryId) {
+    public void setJobCategory(JobCategory jobCategoryId) {
         this.jobCategory = jobCategoryId;
     }
 

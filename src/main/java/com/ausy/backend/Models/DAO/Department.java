@@ -1,5 +1,7 @@
 package com.ausy.backend.Models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class Department {
     @Column(name = "department_name")
     private String name;
 
-    @OneToMany(mappedBy = "department" , cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Employee> employees ;
 
     public int getId() {
@@ -51,5 +54,13 @@ public class Department {
         else {
             return true;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

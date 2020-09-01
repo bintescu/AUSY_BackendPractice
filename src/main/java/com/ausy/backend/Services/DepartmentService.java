@@ -20,24 +20,24 @@ public class DepartmentService {
         }
         else
         {
-            throw new ErrorResponse("Department added is null !",205);
+            throw new ErrorResponse("Department added is null !",400);
         }
     }
 
     public List<Department> findAllDepartments(){
         List<Department> departmentList = departmentRepository.findAll();
-        if(departmentList.size() == 0){
-            throw  new ErrorResponse("Departments table is empty!",205);
-        }
-        else {
-            return departmentList;
-        }
+        return departmentList;
+
+    }
+
+    public Department findDepById(int id){
+        return departmentRepository.findById(id);
     }
 
     public void removeDepartment(int id){
         Department department = null;
         try {
-            department = departmentRepository.findById(id).get();
+            department = departmentRepository.findById(id);
         }catch (RuntimeException e){
             throw new ErrorResponse(e.getMessage(),404);
         }

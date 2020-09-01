@@ -38,7 +38,7 @@ public class JobCategoryService {
     public void deleteJobCategory(int id){
         JobCategory jobCategory = null;
         try {
-            jobCategory = jobCategoryRepository.findById(id).get();
+            jobCategory = jobCategoryRepository.findById(id);
         }catch (RuntimeException e){
             throw new ErrorResponse(e.getMessage(),404);
         }
