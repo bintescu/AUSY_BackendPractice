@@ -1,5 +1,7 @@
 package com.ausy.backend.Models.DTO;
 
+import java.time.LocalDate;
+
 public class EmployeeDTO {
 
     private String firstname;
@@ -8,6 +10,51 @@ public class EmployeeDTO {
     private String department;
     private String jobCategory;
     private String telephone;
+    private int id;
+    private boolean isManager;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private boolean active;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean manager) {
+        isManager = manager;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public String getFirstname() {
         return firstname;

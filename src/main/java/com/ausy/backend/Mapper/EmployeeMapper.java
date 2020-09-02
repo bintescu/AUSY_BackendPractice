@@ -29,6 +29,11 @@ public class EmployeeMapper {
             employeeDTO.setLastname(employee.getLastName());
             employeeDTO.setEmail(employee.getEmail());
             employeeDTO.setTelephone(employee.getTelephone());
+            employeeDTO.setId(employee.getId());
+            employeeDTO.setActive(employee.isActive());
+            employeeDTO.setEndDate(employee.getEndDate());
+            employeeDTO.setStartDate(employee.getStartDate());
+            employeeDTO.setManager(employee.isManager());
             try {
                 employeeDTO.setDepartment(employee.getDepartment().getName());
             }catch (NullPointerException e){

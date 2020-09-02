@@ -33,7 +33,7 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(departmentAdded);
     }
 
-    @GetMapping("/findAllDepartments")
+    @GetMapping("/getAllDepartments")
     public ResponseEntity<List<Department>> getAllDepartments(){
         List<Department> departmentList = null;
         try{
@@ -45,8 +45,8 @@ public class DepartmentController {
         httpHeaders.add("Response","findAllDepartments");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(departmentList);
     }
-    @GetMapping("/findDepartmentById")
-    public ResponseEntity<Department> getAllDepartments(@RequestParam int id){
+    @GetMapping("/getDepartmentById/{id}")
+    public ResponseEntity<Department> getAllDepartments(@PathVariable int id){
         Department department = null;
         try{
             department = departmentService.findDepById(id);
@@ -57,8 +57,8 @@ public class DepartmentController {
         httpHeaders.add("Response","findDepartmentById");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(department);
     }
-    @DeleteMapping("/deleteDepartment")
-    public ResponseEntity<String> deleteDepartment(@RequestParam int id){
+    @DeleteMapping("/deleteDepartment/{id}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable int id){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response","deleteDepartment");
         try {

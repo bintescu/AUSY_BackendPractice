@@ -49,8 +49,16 @@ public class JobCategoryController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jobCategoryList);
     }
 
-    @DeleteMapping("/deleteJobCategory")
-    public ResponseEntity<String> deleteJobCategory(@RequestParam int id){
+    @GetMapping("/getJobCategoryById/{id}")
+    public ResponseEntity<JobCategory> getJobCategory(@PathVariable int id){
+        JobCategory jobCategory = jobCategoryService.findJobCategory(id);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","getJobCategoryById");
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(jobCategory);
+    }
+
+    @DeleteMapping("/deleteJobCategory/{id}")
+    public ResponseEntity<String> deleteJobCategory(@PathVariable int id){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response","deleteJobCategory");
         try{

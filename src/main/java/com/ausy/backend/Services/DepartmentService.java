@@ -35,11 +35,9 @@ public class DepartmentService {
     }
 
     public void removeDepartment(int id){
-        Department department = null;
-        try {
-            department = departmentRepository.findById(id);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e.getMessage(),404);
+        Department department = departmentRepository.findById(id);
+       if(department == null){
+            throw new ErrorResponse("Department not found",404);
         }
         departmentRepository.delete(department);
 

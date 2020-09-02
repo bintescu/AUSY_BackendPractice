@@ -25,6 +25,9 @@ public class JobCategoryService {
         }
     }
 
+    public JobCategory findJobCategory(int id){
+        return jobCategoryRepository.findById(id);
+    }
     public List<JobCategory> findAllJobCategories(){
         List<JobCategory> jobCategoryList =  jobCategoryRepository.findAll();
         if(jobCategoryList.size() == 0){
@@ -36,11 +39,9 @@ public class JobCategoryService {
     }
     
     public void deleteJobCategory(int id){
-        JobCategory jobCategory = null;
-        try {
-            jobCategory = jobCategoryRepository.findById(id);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e.getMessage(),404);
+        JobCategory jobCategory = jobCategoryRepository.findById(id);
+        if(jobCategory == null){
+            throw new ErrorResponse("Job category not found",404);
         }
         jobCategoryRepository.delete(jobCategory);
     }

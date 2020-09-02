@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> hendleGenericException(Exception e , HttpServletResponse response)
+    public ResponseEntity<Object> hendleGenericException(Exception e, HttpServletResponse response)
     {
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         response.setStatus(httpStatus.value());

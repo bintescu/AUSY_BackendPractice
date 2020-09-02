@@ -30,27 +30,16 @@ public class EmployeeService {
             return employeeList;
     }
 
-    public Employee addEmployee(Employee employee){
-        Department department = departmentRepository.findById(employee.getDepartment().getId());
-        JobCategory jobCategory = jobCategoryRepository.findById(employee.getJobCategory().getId());
-        if(department == null || jobCategory == null){
-            throw new ErrorResponse("Department or Jobcategory is null",404);
-        }
-        return employeeRepository.save(employee);
-    }
-
     public Employee addEmployee(Employee employee, int departmentid, int jobcategoryid){
         Department department =null;
         JobCategory jobCategory = null;
-        try{
-            department = departmentRepository.findById(departmentid);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e, "No value present for this department id" ,404);
+        department = departmentRepository.findById(departmentid);
+        jobCategory = jobCategoryRepository.findById(jobcategoryid);
+        if(department == null){
+            throw new ErrorResponse("No value present for this department id" ,404);
         }
-        try{
-            jobCategory = jobCategoryRepository.findById(jobcategoryid);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e, "No value present for this jobcategory id" ,404);
+        if(jobCategory == null){
+            throw new ErrorResponse( "No value present for this jobcategory id" ,404);
 
         }
         employee.setDepartment(department);
@@ -60,41 +49,39 @@ public class EmployeeService {
     }
 
     public boolean deleteEmployee(int id){
-        Employee employee = null;
-        try {
-            employee = employeeRepository.findById(id);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e,"No employee present for this id ", 404);
-        }
+        Employee employee = employeeRepository.findById(id);
+            if(employee == null){
+                throw new ErrorResponse("No employee present for this id",404);
+            }
         employeeRepository.delete(employee);
         return true;
     }
 
     public Employee findEmployeeById(int id){
         Employee employee =  null;
-        try {
+
             employee = employeeRepository.findById(id);
-        }catch (RuntimeException e){
-            throw new ErrorResponse(e,"No employee present for this id",404);
+        if(employee == null){
+            throw new ErrorResponse("No employee present for this id",404);
         }
         return employee;
     }
 
-    public Employee updateEmployee(Employee employee, int id){
-        Employee updatedEmployee = findEmployeeById(id);
+    public Employee updateEmployee(Employee employee, int employeeId, int departmentId, int jobCategoryId){
+        Employee updatedEmployee = findEmployeeById(employeeId);
 
         updatedEmployee.setFirstName(employee.getFirstName());
         updatedEmployee.setLastName(employee.getLastName());
 
 
-        Department department = departmentRepository.findById(employee.getDepartment().getId());
-        JobCategory jobCategory = jobCategoryRepository.findById(employee.getJobCategory().getId());
+        Department department = departmentRepository.findById(departmentId);
+        JobCategory jobCategory = jobCategoryRepository.findById(jobCategoryId);
         if(department == null || jobCategory == null){
             throw new ErrorResponse("Department or Jobcategory is null",404);
         }
 
-        updatedEmployee.setDepartment(employee.getDepartment());
-        updatedEmployee.setJobCategory(employee.getJobCategory());
+        updatedEmployee.setDepartment(department);
+        updatedEmployee.setJobCategory(jobCategory);
         updatedEmployee.setActive(employee.isActive());
         updatedEmployee.setAddress(employee.getAddress());
         updatedEmployee.setBirthday(employee.getBirthday());
