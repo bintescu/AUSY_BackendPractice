@@ -93,7 +93,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> getEmployee(@PathVariable int id){
         Employee employee = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployeeDTO");
+        httpHeaders.add("Response","getEmployee");
         try {
             employee = employeeService.findEmployeeById(id);
         }catch (ErrorResponse e){
