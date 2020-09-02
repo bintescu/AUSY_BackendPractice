@@ -34,17 +34,18 @@ public class EmployeeMapper {
             employeeDTO.setEndDate(employee.getEndDate());
             employeeDTO.setStartDate(employee.getStartDate());
             employeeDTO.setManager(employee.isManager());
+            employeeDTO.setSalary(employee.getSalary());
             try {
-                employeeDTO.setDepartment(employee.getDepartment().getName());
+                employeeDTO.setDepartment(employee.getDepartment().getId());
             }catch (NullPointerException e){
                 ErrorResponse.LogError(new ErrorResponse(e,"Null department.",206));
-                employeeDTO.setDepartment(null);
+                employeeDTO.setDepartment(0);
             }
             try {
-                employeeDTO.setJobCategory(employee.getJobCategory().getName());
+                employeeDTO.setJobCategory(employee.getJobCategory().getId());
             }catch (NullPointerException e){
                 ErrorResponse.LogError(new ErrorResponse(e,"Null jobcategory.",206));
-                employeeDTO.setJobCategory(null);
+                employeeDTO.setJobCategory(0);
             }
         }
         else {

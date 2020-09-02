@@ -117,6 +117,9 @@ public class EmployeeService {
     }
 
 
+    public List<Employee> findEmployeesOrderBySalary(){
+        return employeeRepository.findAllByOrderBySalary();
+    }
 
 
 }

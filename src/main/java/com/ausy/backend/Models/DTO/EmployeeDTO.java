@@ -7,17 +7,25 @@ public class EmployeeDTO {
     private String firstname;
     private String lastname;
     private String email;
-    private String department;
-    private String jobCategory;
+    private int department;
+    private int jobCategory;
     private String telephone;
     private int id;
     private boolean isManager;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean active;
-
+    private Double salary;
     public int getId() {
         return id;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
     public void setId(int id) {
@@ -80,19 +88,19 @@ public class EmployeeDTO {
         this.email = email;
     }
 
-    public String getDepartment() {
+    public int getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(int department) {
         this.department = department;
     }
 
-    public String getJobCategory() {
+    public int getJobCategory() {
         return jobCategory;
     }
 
-    public void setJobCategory(String jobCategory) {
+    public void setJobCategory(int jobCategory) {
         this.jobCategory = jobCategory;
     }
 

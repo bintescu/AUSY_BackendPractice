@@ -73,7 +73,7 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body("Deleted.");
     }
 
-    @GetMapping("/getEmployee/{id}")
+    @GetMapping("/getEmployeeDTO/{id}")
     public ResponseEntity<EmployeeDTO> getEmployeeDTO(@PathVariable int id){
         EmployeeDTO employeeDTO = null;
         Employee employee = null;
@@ -89,6 +89,19 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.FOUND).headers(httpHeaders).body(employeeDTO);
     }
 
+    @GetMapping("/getEmployee/{id}")
+    public ResponseEntity<Employee> getEmployee(@PathVariable int id){
+        Employee employee = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","getEmployeeDTO");
+        try {
+            employee = employeeService.findEmployeeById(id);
+        }catch (ErrorResponse e){
+            ErrorResponse.LogError(e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).headers(httpHeaders).body(employee);
+    }
     @PutMapping("/updateEmployee/{employeeId}/{departmentId}/{jobCategoryId}")
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee,@PathVariable int employeeId, @PathVariable int departmentId, @PathVariable int jobCategoryId){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -169,6 +182,23 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
         employeeDTOList = employeeList.stream().map(e -> employeeMapper.convertEmployeeToDto(e)).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
+    }
+
+    @GetMapping("/getEmployeesOrderBySalary")
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesOrderBySalary(){
+        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+        List<Employee> employeeList = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Resolve","getEmployeesOrderBySalary");
+
+        try {
+            employeeList = employeeService.findEmployeesOrderBySalary();
+        }catch (ErrorResponse e){
+            ErrorResponse.LogError(e);
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
+        }
+        employeeList.stream().map(e -> employeeMapper.convertEmployeeToDto(e)).forEach(employeeDTOList::add);
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
     }
 
