@@ -13,4 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     Employee findById (int id);
 
     List<Employee> findAllByOrderBySalary();
+
+
 }

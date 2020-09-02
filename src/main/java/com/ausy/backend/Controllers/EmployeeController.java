@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
+@CrossOrigin(origins = "*")
 public class EmployeeController {
 
 
