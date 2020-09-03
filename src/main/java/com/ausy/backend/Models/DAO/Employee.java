@@ -43,6 +43,18 @@ public class Employee {
         isManager = manager;
     }
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] profilePicture;
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -59,7 +71,6 @@ public class Employee {
     private String studies;
     private String socialSecurityNumber;
     private boolean hasDrivingLicense;
-
     public Employee getManagerId() {
         return managerId;
     }

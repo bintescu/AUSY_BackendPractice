@@ -1,4 +1,4 @@
-package com.ausy.backend.Controllers;
+package com.ausy.backend.controllers;
 
 
 import com.ausy.backend.Exceptions.ErrorResponse;
@@ -7,13 +7,11 @@ import com.ausy.backend.Models.DAO.Employee;
 import com.ausy.backend.Models.DTO.EmployeeDTO;
 import com.ausy.backend.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,14 +32,13 @@ public class EmployeeController {
 
 
     @GetMapping("/getAllEmployees")
-    public ResponseEntity<List<Employee>> getAllEmployee()
-    {
+    public ResponseEntity<List<Employee>> getAllEmployee() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getAllEmployees");
+        httpHeaders.add("Response", "getAllEmployees");
         List<Employee> employeeList = null;
         try {
-             employeeList = employeeService.findAll();
-        }catch (ErrorResponse e){
+            employeeList = employeeService.findAll();
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
         }
@@ -50,15 +47,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/getAllEmployeesDTO")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeesDTO(){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesDTO() {
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
         List<Employee> employeeList = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Resolve","getAllEmployees");
+        httpHeaders.add("Resolve", "getAllEmployees");
 
         try {
             employeeList = employeeService.findAll();
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
         }
@@ -67,13 +64,13 @@ public class EmployeeController {
     }
 
     @PostMapping("addEmployee/{department}/{jobcategory}")
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee , @PathVariable int department, @PathVariable int jobcategory){
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee, @PathVariable int department, @PathVariable int jobcategory) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","addEmployeeDepJob");
+        httpHeaders.add("Response", "addEmployeeDepJob");
         Employee employeeResp = null;
         try {
-            employeeResp = employeeService.addEmployee(employee,department,jobcategory);
-        }catch (ErrorResponse e){
+            employeeResp = employeeService.addEmployee(employee, department, jobcategory);
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(null);
         }
@@ -82,13 +79,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/deleteEmployee/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable int id){
+    public ResponseEntity<String> deleteEmployee(@PathVariable int id) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","deleteEmployee");
+        httpHeaders.add("Response", "deleteEmployee");
         try {
             employeeService.deleteEmployee(id);
-        }
-        catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body("Not found.");
         }
@@ -96,14 +92,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeeDTO/{id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeDTO(@PathVariable int id){
+    public ResponseEntity<EmployeeDTO> getEmployeeDTO(@PathVariable int id) {
         EmployeeDTO employeeDTO = null;
         Employee employee = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployeeDTO");
+        httpHeaders.add("Response", "getEmployeeDTO");
         try {
             employee = employeeService.findEmployeeById(id);
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
@@ -112,26 +108,27 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployee/{id}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable int id){
+    public ResponseEntity<Employee> getEmployee(@PathVariable("id") int id) {
         Employee employee = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployee");
+        httpHeaders.add("Response", "getEmployee");
         try {
             employee = employeeService.findEmployeeById(id);
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
         return ResponseEntity.status(HttpStatus.FOUND).headers(httpHeaders).body(employee);
     }
+
     @PutMapping("/updateEmployee/{employeeId}/{departmentId}/{jobCategoryId}")
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee,@PathVariable int employeeId, @PathVariable int departmentId, @PathVariable int jobCategoryId){
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable int employeeId, @PathVariable int departmentId, @PathVariable int jobCategoryId) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","updateEmployee");
+        httpHeaders.add("Response", "updateEmployee");
         Employee employeeUpdated;
         try {
-            employeeUpdated = employeeService.updateEmployee(employee,employeeId,departmentId,jobCategoryId);
-        }catch (ErrorResponse e){
+            employeeUpdated = employeeService.updateEmployee(employee, employeeId, departmentId, jobCategoryId);
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(null);
         }
@@ -139,18 +136,16 @@ public class EmployeeController {
     }
 
 
-
-
     @GetMapping("/getEmployeesByDepartment/{departmentid}")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeeByDep(@PathVariable int departmentid){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeeByDep(@PathVariable int departmentid) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployeesByDep");
+        httpHeaders.add("Response", "getEmployeesByDep");
         List<Employee> employeeList;
         List<EmployeeDTO> employeeDTOList;
 
         try {
             employeeList = employeeService.findEmployeeByDepartment(departmentid);
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
@@ -159,15 +154,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeesByJob/{jobid}")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeeByJob(@PathVariable int jobid){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeeByJob(@PathVariable int jobid) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployeesByJob");
+        httpHeaders.add("Response", "getEmployeesByJob");
         List<Employee> employeeList;
         List<EmployeeDTO> employeeDTOList;
 
         try {
             employeeList = employeeService.findEmployeeByJobId(jobid);
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
@@ -176,15 +171,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeesByDepartmentAndJob/{departmentid}/{jobid}")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeeByDepandJob(@PathVariable int departmentid,@PathVariable int jobid){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeeByDepandJob(@PathVariable int departmentid, @PathVariable int jobid) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getEmployeesByDepartmentAndJobId");
+        httpHeaders.add("Response", "getEmployeesByDepartmentAndJobId");
         List<Employee> employeeList;
         List<EmployeeDTO> employeeDTOList;
 
         try {
-            employeeList = employeeService.findEmployeesByDepAndJob(jobid,departmentid);
-        }catch (ErrorResponse e){
+            employeeList = employeeService.findEmployeesByDepAndJob(jobid, departmentid);
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body(null);
         }
@@ -193,15 +188,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeesOrderBySalary")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeesOrderBySalary(){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesOrderBySalary() {
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
         List<Employee> employeeList = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Resolve","getEmployeesOrderBySalary");
+        httpHeaders.add("Resolve", "getEmployeesOrderBySalary");
 
         try {
             employeeList = employeeService.findEmployeesOrderBySalary();
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
         }
@@ -210,15 +205,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployeesByDepartmentOrderBySalary/{departmentId}")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeesByDepartmentOrderBySalary(@PathVariable int departmentId){
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesByDepartmentOrderBySalary(@PathVariable int departmentId) {
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
         List<Employee> employeeList = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Resolve","getEmployeesByDepartmentOrderBySalary");
+        httpHeaders.add("Resolve", "getEmployeesByDepartmentOrderBySalary");
 
         try {
             employeeList = employeeService.findEmployeesByDepartmentOrderBySalary(departmentId);
-        }catch (ErrorResponse e){
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
         }
@@ -227,13 +222,13 @@ public class EmployeeController {
     }
 
     @PutMapping("/setManagerForEmployees/{employees}/{manager}")
-    public ResponseEntity<List<Employee>> setManagerForEmployees(@PathVariable List<Integer> employees,@PathVariable int manager){
+    public ResponseEntity<List<Employee>> setManagerForEmployees(@PathVariable List<Integer> employees, @PathVariable int manager) {
         List<Employee> employeeList = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","setManagerForEmployees");
+        httpHeaders.add("Response", "setManagerForEmployees");
         try {
-            employeeList = employeeService.setManager(employees,manager);
-        }catch (ErrorResponse e){
+            employeeList = employeeService.setManager(employees, manager);
+        } catch (ErrorResponse e) {
             ErrorResponse.LogError(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(employeeList);
         }
@@ -241,46 +236,46 @@ public class EmployeeController {
     }
 
     @GetMapping("getAllEmployeesByManagerId/{managerid}")
-    public ResponseEntity<List<Employee>> getAllEmployeesByManagerId(@PathVariable int managerid){
+    public ResponseEntity<List<Employee>> getAllEmployeesByManagerId(@PathVariable int managerid) {
         List<Employee> employeeList = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getAllEmployeeByManagerId");
+        httpHeaders.add("Response", "getAllEmployeeByManagerId");
         try {
             employeeList = employeeService.findEmployeesByManager(managerid);
-        }catch (RuntimeException e){
-            ErrorResponse.LogError(new ErrorResponse("Manager not found!",404));
+        } catch (RuntimeException e) {
+            ErrorResponse.LogError(new ErrorResponse("Manager not found!", 404));
             ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
         }
 
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
     }
+
     @GetMapping("getAllEmployeesDTOByManagerId/{managerid}")
-    public ResponseEntity<List<EmployeeDTO>> getAllEmployeesDTOByManagerId(@PathVariable int managerid){
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployeesDTOByManagerId(@PathVariable int managerid) {
         List<Employee> employeeList = null;
         List<EmployeeDTO> employeeDTOS = null;
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Response","getAllEmployeeByManagerId");
+        httpHeaders.add("Response", "getAllEmployeeByManagerId");
         try {
             employeeList = employeeService.findEmployeesByManager(managerid);
-        }catch (RuntimeException e){
-            ErrorResponse.LogError(new ErrorResponse("Manager not found!",404));
+        } catch (RuntimeException e) {
+            ErrorResponse.LogError(new ErrorResponse("Manager not found!", 404));
             ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
         }
         employeeDTOS = employeeList.stream().map(e -> employeeMapper.convertEmployeeToDto(e)).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOS);
     }
 
-    @RequestMapping(value = "/profilePicture", method = RequestMethod.GET,
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getImage() throws IOException {
+    @PutMapping("/setProfilePictureToEmployee/{employeeid}")
+    public void uploadImage(@RequestParam("file") MultipartFile imageFile, @PathVariable int employeeid) {
+        try {
+            byte[] img = imageFile.getBytes();
+            System.out.println(img);
+            employeeService.setProfilePicture(employeeid, img);
+            System.out.println("Image saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        var imgFile = new ClassPathResource("/profilePicture.jpg");
-        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
-
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(bytes);
     }
-
 }

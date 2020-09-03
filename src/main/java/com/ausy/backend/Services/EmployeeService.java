@@ -85,6 +85,11 @@ public class EmployeeService {
             if(employee == null){
                 throw new ErrorResponse("No employee present for this id",404);
             }
+
+            if(employee.isManager()){
+                List<Employee> employeeList = findAll();
+                employeeList.stream().filter(e->e.getManagerId() != null).filter(e->e.getManagerId().getId() == id).forEach(e -> e.setManagerId(null));
+            }
         employeeRepository.delete(employee);
         return true;
     }
@@ -162,5 +167,16 @@ public class EmployeeService {
         return employeeList.stream().filter(e -> e.getManagerId() != null).filter(e -> e.getManagerId().getId() == managerId).collect(Collectors.toList());
     }
 
+    public void setProfilePicture(int employeeid, byte[] image){
+        Employee employee = employeeRepository.findById(employeeid);
+        if(employee == null){
+            throw new ErrorResponse("Employee not found!",404);
+        }
+        else {
+                employee.setProfilePicture(image);
+                employeeRepository.save(employee);
+        }
+
+    }
 
 }
