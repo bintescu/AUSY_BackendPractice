@@ -1,4 +1,4 @@
-package com.ausy.backend.Controllers;
+package com.ausy.backend.controllers;
 
 
 import com.ausy.backend.Exceptions.ErrorResponse;
