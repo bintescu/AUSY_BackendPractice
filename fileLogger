@@ -2,26 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2020-09-03T08:27:27.873167900Z</date>
-  <millis>1599121647873</millis>
-  <nanos>167900</nanos>
+  <date>2020-09-03T19:23:44.415800700Z</date>
+  <millis>1599161024415</millis>
+  <nanos>800700</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>SEVERE</level>
   <class>com.ausy.backend.Exceptions.ErrorResponse</class>
   <method>LogError</method>
-  <thread>35</thread>
-  <message>No value present for this jobcategory id</message>
-</record>
-<record>
-  <date>2020-09-03T08:27:31.930968900Z</date>
-  <millis>1599121651930</millis>
-  <nanos>968900</nanos>
-  <sequence>5</sequence>
-  <logger>global</logger>
-  <level>SEVERE</level>
-  <class>com.ausy.backend.Exceptions.ErrorResponse</class>
-  <method>LogError</method>
-  <thread>36</thread>
-  <message>No value present for this jobcategory id</message>
+  <thread>30</thread>
+  <message>The manager_id does not refer to a manager.</message>
 </record>

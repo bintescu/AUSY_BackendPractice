@@ -7,11 +7,15 @@ import com.ausy.backend.Models.DAO.Employee;
 import com.ausy.backend.Models.DTO.EmployeeDTO;
 import com.ausy.backend.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -222,8 +226,61 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOList);
     }
 
+    @PutMapping("/setManagerForEmployees/{employees}/{manager}")
+    public ResponseEntity<List<Employee>> setManagerForEmployees(@PathVariable List<Integer> employees,@PathVariable int manager){
+        List<Employee> employeeList = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","setManagerForEmployees");
+        try {
+            employeeList = employeeService.setManager(employees,manager);
+        }catch (ErrorResponse e){
+            ErrorResponse.LogError(e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(httpHeaders).body(employeeList);
+        }
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
+    }
 
+    @GetMapping("getAllEmployeesByManagerId/{managerid}")
+    public ResponseEntity<List<Employee>> getAllEmployeesByManagerId(@PathVariable int managerid){
+        List<Employee> employeeList = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","getAllEmployeeByManagerId");
+        try {
+            employeeList = employeeService.findEmployeesByManager(managerid);
+        }catch (RuntimeException e){
+            ErrorResponse.LogError(new ErrorResponse("Manager not found!",404));
+            ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
+        }
 
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
+    }
+    @GetMapping("getAllEmployeesDTOByManagerId/{managerid}")
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployeesDTOByManagerId(@PathVariable int managerid){
+        List<Employee> employeeList = null;
+        List<EmployeeDTO> employeeDTOS = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","getAllEmployeeByManagerId");
+        try {
+            employeeList = employeeService.findEmployeesByManager(managerid);
+        }catch (RuntimeException e){
+            ErrorResponse.LogError(new ErrorResponse("Manager not found!",404));
+            ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeList);
+        }
+        employeeDTOS = employeeList.stream().map(e -> employeeMapper.convertEmployeeToDto(e)).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeDTOS);
+    }
 
+    @RequestMapping(value = "/profilePicture", method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getImage() throws IOException {
+
+        var imgFile = new ClassPathResource("/profilePicture.jpg");
+        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(bytes);
+    }
 
 }

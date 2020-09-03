@@ -10,7 +10,9 @@ import com.ausy.backend.Repositories.JobCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,10 +44,40 @@ public class EmployeeService {
             throw new ErrorResponse( "No value present for this jobcategory id" ,404);
 
         }
+
         employee.setDepartment(department);
         employee.setJobCategory(jobCategory);
         return employeeRepository.save(employee);
 
+    }
+
+    public List<Employee> setManager(List<Integer> employees, int managerId){
+        List<Employee> employeeList = new ArrayList<>();
+        Employee manager;
+
+        try {
+            employees.stream().forEach(e ->employeeList.add(employeeRepository.findById(e).get()));
+        }catch (NoSuchElementException e){
+            throw new ErrorResponse("Bad id of employee in list of employees",404);
+        }
+        try {
+            manager = employeeRepository.findById(managerId);
+        }
+        catch (NoSuchElementException e){
+            throw new ErrorResponse("Bad id for manager",404);
+        }
+
+        if(!manager.isManager()){
+           throw new ErrorResponse("The manager_id does not refer to a manager.",404);
+        }
+        if(employeeList.stream().anyMatch(e -> e.getId() == managerId)){
+            throw new ErrorResponse("An employee can not be his manager",400);
+        }
+        employeeList.forEach(e -> e.setManagerId(manager));
+        employeeList.forEach(e -> employeeRepository.save(e));
+
+
+        return employeeList;
     }
 
     public boolean deleteEmployee(int id){
@@ -123,6 +155,11 @@ public class EmployeeService {
 
     public List<Employee> findEmployeesByDepartmentOrderBySalary(int department){
         return employeeRepository.findAllByDepartmentdOrderBySalary(department);
+    }
+
+    public List<Employee> findEmployeesByManager(int managerId){
+        List<Employee> employeeList = findAll();
+        return employeeList.stream().filter(e -> e.getManagerId() != null).filter(e -> e.getManagerId().getId() == managerId).collect(Collectors.toList());
     }
 
 

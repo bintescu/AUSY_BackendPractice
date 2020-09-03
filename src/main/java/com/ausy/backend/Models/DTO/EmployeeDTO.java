@@ -17,6 +17,15 @@ public class EmployeeDTO {
     private boolean active;
     private Double salary;
 
+    private Integer managerId;
+
+    public Integer getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
+    }
 
     public int getId() {
         return id;
