@@ -121,5 +121,9 @@ public class EmployeeService {
         return employeeRepository.findAllByOrderBySalary();
     }
 
+    public List<Employee> findEmployeesByDepartmentOrderBySalary(int department){
+        return employeeRepository.findAllByDepartmentdOrderBySalary(department);
+    }
+
 
 }

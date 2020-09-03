@@ -16,6 +16,8 @@ public class EmployeeDTO {
     private LocalDate endDate;
     private boolean active;
     private Double salary;
+
+
     public int getId() {
         return id;
     }
