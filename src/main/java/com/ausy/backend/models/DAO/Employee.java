@@ -20,11 +20,11 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "jobCategoryId")
-    private JobCategory jobCategory;
+    private com.ausy.backend.Models.DAO.JobCategory jobCategory;
 
     @ManyToOne
     @JoinColumn(name = "departmentId")
-    private Department department;
+    private com.ausy.backend.Models.DAO.Department department;
 
 
     @ManyToOne
@@ -103,19 +103,19 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public JobCategory getJobCategory() {
+    public com.ausy.backend.Models.DAO.JobCategory getJobCategory() {
         return jobCategory;
     }
 
-    public void setJobCategory(JobCategory jobCategoryId) {
+    public void setJobCategory(com.ausy.backend.Models.DAO.JobCategory jobCategoryId) {
         this.jobCategory = jobCategoryId;
     }
 
-    public Department getDepartment() {
+    public com.ausy.backend.Models.DAO.Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(com.ausy.backend.Models.DAO.Department department) {
         this.department = department;
     }
 

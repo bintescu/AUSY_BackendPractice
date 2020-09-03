@@ -16,7 +16,7 @@ public class DepartmentService {
     DepartmentRepository departmentRepository;
 
     @Autowired
-    EmployeeService employeeService;
+    com.ausy.backend.Services.EmployeeService employeeService;
     public Department addDepartment(Department department){
         if (department.isValid()) {
             return departmentRepository.save(department);
