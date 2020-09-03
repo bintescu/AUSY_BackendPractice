@@ -17,7 +17,7 @@ public class JobCategoryService {
     JobCategoryRepository jobCategoryRepository;
 
     @Autowired
-    EmployeeService employeeService;
+    com.ausy.backend.Services.EmployeeService employeeService;
     public JobCategory addJobCategory(JobCategory jobCategory){
 
         if(jobCategory.isValid()) {

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.springfox:springfox-oas:3.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springfox/springfox-oas/3.0.0-SNAPSHOT/springfox-oas-3.0.0-20200714.030222-90.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springfox/springfox-oas/3.0.0-SNAPSHOT/springfox-oas-3.0.0-20200714.030222-90-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/springfox/springfox-oas/3.0.0-SNAPSHOT/springfox-oas-3.0.0-20200714.030222-90-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
