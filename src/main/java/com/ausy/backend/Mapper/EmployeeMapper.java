@@ -36,6 +36,12 @@ public class EmployeeMapper {
             employeeDTO.setManager(employee.isManager());
             employeeDTO.setSalary(employee.getSalary());
             try {
+                employeeDTO.setManagerId(employee.getManagerId().getId());
+            }catch (NullPointerException e){
+                ErrorResponse.LogError(new ErrorResponse(e,"Null ManagerId",206));
+                employeeDTO.setManagerId(null);
+            }
+            try {
                 employeeDTO.setDepartment(employee.getDepartment().getId());
             }catch (NullPointerException e){
                 ErrorResponse.LogError(new ErrorResponse(e,"Null department.",206));

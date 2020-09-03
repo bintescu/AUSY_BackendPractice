@@ -27,7 +27,22 @@ public class Employee {
     private Department department;
 
 
+    @ManyToOne
+    @JoinColumn(name = "managerId")
+    private Employee managerId;
+
+
+    @Column(name = "isManager")
     private boolean isManager;
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean manager) {
+        isManager = manager;
+    }
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -45,6 +60,13 @@ public class Employee {
     private String socialSecurityNumber;
     private boolean hasDrivingLicense;
 
+    public Employee getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Employee managerId) {
+        this.managerId = managerId;
+    }
 
     public int getId() {
         return id;
@@ -111,13 +133,6 @@ public class Employee {
                 '}';
     }
 
-    public boolean isManager() {
-        return isManager;
-    }
-
-    public void setManager(boolean manager) {
-        isManager = manager;
-    }
 
     public LocalDate getStartDate() {
         return startDate;
