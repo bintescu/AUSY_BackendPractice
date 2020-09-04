@@ -1,7 +1,7 @@
-package com.ausy.backend.Repositories;
+package com.ausy.backend.repositories;
 
 
-import com.ausy.backend.Models.DAO.Employee;
+import com.ausy.backend.models.DAO.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

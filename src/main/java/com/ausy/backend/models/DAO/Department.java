@@ -1,4 +1,4 @@
-package com.ausy.backend.Models.DAO;
+package com.ausy.backend.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

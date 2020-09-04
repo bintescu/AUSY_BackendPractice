@@ -1,12 +1,12 @@
-package com.ausy.backend.Services;
+package com.ausy.backend.services;
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Models.DAO.Department;
-import com.ausy.backend.Models.DAO.Employee;
-import com.ausy.backend.Models.DAO.JobCategory;
-import com.ausy.backend.Repositories.DepartmentRepository;
-import com.ausy.backend.Repositories.EmployeeRepository;
-import com.ausy.backend.Repositories.JobCategoryRepository;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.models.DAO.Department;
+import com.ausy.backend.models.DAO.Employee;
+import com.ausy.backend.models.DAO.JobCategory;
+import com.ausy.backend.repositories.DepartmentRepository;
+import com.ausy.backend.repositories.EmployeeRepository;
+import com.ausy.backend.repositories.JobCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

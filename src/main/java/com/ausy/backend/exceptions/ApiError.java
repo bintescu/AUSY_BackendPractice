@@ -1,4 +1,4 @@
-package com.ausy.backend.Exceptions;
+package com.ausy.backend.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;

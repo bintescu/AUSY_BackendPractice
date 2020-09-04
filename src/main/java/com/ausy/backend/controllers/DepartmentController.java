@@ -1,9 +1,9 @@
 package com.ausy.backend.controllers;
 
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Models.DAO.Department;
-import com.ausy.backend.Services.DepartmentService;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.models.DAO.Department;
+import com.ausy.backend.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

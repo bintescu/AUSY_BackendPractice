@@ -1,4 +1,4 @@
-package com.ausy.backend.Models.DTO;
+package com.ausy.backend.models.DTO;
 
 import java.time.LocalDate;
 

@@ -1,9 +1,9 @@
-package com.ausy.backend.Services;
+package com.ausy.backend.services;
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Models.DAO.Department;
-import com.ausy.backend.Models.DAO.Employee;
-import com.ausy.backend.Repositories.DepartmentRepository;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.models.DAO.Department;
+import com.ausy.backend.models.DAO.Employee;
+import com.ausy.backend.repositories.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class DepartmentService {
     DepartmentRepository departmentRepository;
 
     @Autowired
-    com.ausy.backend.Services.EmployeeService employeeService;
+    EmployeeService employeeService;
     public Department addDepartment(Department department){
         if (department.isValid()) {
             return departmentRepository.save(department);

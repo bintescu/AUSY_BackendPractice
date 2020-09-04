@@ -1,11 +1,11 @@
 package com.ausy.backend.controllers;
 
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Mapper.EmployeeMapper;
-import com.ausy.backend.Models.DAO.Employee;
-import com.ausy.backend.Models.DTO.EmployeeDTO;
-import com.ausy.backend.Services.EmployeeService;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.mapper.EmployeeMapper;
+import com.ausy.backend.models.DAO.Employee;
+import com.ausy.backend.models.DTO.EmployeeDTO;
+import com.ausy.backend.services.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -284,15 +284,23 @@ public class EmployeeController {
 
     @Operation(summary = "Seteaza poza de profil a unui angajat.")
     @PutMapping("/setProfilePictureToEmployee/{employeeid}")
-    public void uploadImage(@RequestParam("file") MultipartFile imageFile, @PathVariable int employeeid) {
+    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile imageFile, @PathVariable int employeeid) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","SetProfilePicture");
         try {
+
             byte[] img = imageFile.getBytes();
-            System.out.println(img);
-            employeeService.setProfilePicture(employeeid, img);
-            System.out.println("Image saved");
+            try{
+                employeeService.setProfilePicture(employeeid, img);
+            }catch (ErrorResponse e){
+                ErrorResponse.LogError(e);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(httpHeaders).body("Employee Not found!");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body("Profile picture set for employee " + employeeid);
 
     }
 }

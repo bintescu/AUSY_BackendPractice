@@ -1,4 +1,4 @@
-package com.ausy.backend.Models.DAO;
+package com.ausy.backend.models.DAO;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,11 +20,11 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "jobCategoryId")
-    private com.ausy.backend.Models.DAO.JobCategory jobCategory;
+    private JobCategory jobCategory;
 
     @ManyToOne
     @JoinColumn(name = "departmentId")
-    private com.ausy.backend.Models.DAO.Department department;
+    private Department department;
 
 
     @ManyToOne
@@ -103,19 +103,19 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public com.ausy.backend.Models.DAO.JobCategory getJobCategory() {
+    public JobCategory getJobCategory() {
         return jobCategory;
     }
 
-    public void setJobCategory(com.ausy.backend.Models.DAO.JobCategory jobCategoryId) {
+    public void setJobCategory(JobCategory jobCategoryId) {
         this.jobCategory = jobCategoryId;
     }
 
-    public com.ausy.backend.Models.DAO.Department getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(com.ausy.backend.Models.DAO.Department department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

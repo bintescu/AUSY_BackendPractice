@@ -1,9 +1,9 @@
 package com.ausy.backend.controllers;
 
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Models.DAO.JobCategory;
-import com.ausy.backend.Services.JobCategoryService;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.models.DAO.JobCategory;
+import com.ausy.backend.services.JobCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

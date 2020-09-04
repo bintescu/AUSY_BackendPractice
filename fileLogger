@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-09-04T08:07:43.483800200Z</date>
+  <millis>1599206863483</millis>
+  <nanos>800200</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>SEVERE</level>
+  <class>com.ausy.backend.exceptions.ErrorResponse</class>
+  <method>LogError</method>
+  <thread>28</thread>
+  <message>The manager_id does not refer to a manager.</message>
+</record>
+<record>
+  <date>2020-09-04T08:10:22.083371300Z</date>
+  <millis>1599207022083</millis>
+  <nanos>371300</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>SEVERE</level>
+  <class>com.ausy.backend.exceptions.ErrorResponse</class>
+  <method>LogError</method>
+  <thread>33</thread>
+  <message>Department not found</message>
+</record>

@@ -1,11 +1,11 @@
-package com.ausy.backend.Mapper;
+package com.ausy.backend.mapper;
 
-import com.ausy.backend.Exceptions.ErrorResponse;
-import com.ausy.backend.Models.DAO.Employee;
-import com.ausy.backend.Models.DTO.EmployeeDTO;
-import com.ausy.backend.Repositories.DepartmentRepository;
-import com.ausy.backend.Repositories.EmployeeRepository;
-import com.ausy.backend.Repositories.JobCategoryRepository;
+import com.ausy.backend.exceptions.ErrorResponse;
+import com.ausy.backend.models.DAO.Employee;
+import com.ausy.backend.models.DTO.EmployeeDTO;
+import com.ausy.backend.repositories.DepartmentRepository;
+import com.ausy.backend.repositories.EmployeeRepository;
+import com.ausy.backend.repositories.JobCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
