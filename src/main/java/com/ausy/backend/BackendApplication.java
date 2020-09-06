@@ -14,6 +14,7 @@ public class BackendApplication {
     public static void main(String[] args) {
         ErrorResponse.setupLogger();
         SpringApplication.run(BackendApplication.class, args);
+
     }
 
     @Bean

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -301,6 +302,18 @@ public class EmployeeController {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body("Profile picture set for employee " + employeeid);
+    }
 
+    @GetMapping("/getAllHierarchy/{idmanager}")
+    public ResponseEntity<Set<EmployeeDTO>> getAllHierarchy(@PathVariable("idmanager") int id){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Response","Find all hierarchy");
+        try {
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeService.findHierarchyOfEmployeesStartWithManagerID(id).stream().map(e -> employeeMapper.convertEmployeeToDto(e)).collect(Collectors.toSet()));
+        }
+        catch (ErrorResponse e){
+            ErrorResponse.LogError(e);
+            return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(null);
+        }
     }
 }
