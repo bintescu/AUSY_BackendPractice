@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class EmployeeDTO {
 
+    private int id;
     private String firstname;
     private String lastname;
     private String email;
     private int department;
     private int jobCategory;
     private String telephone;
-    private int id;
     private boolean isManager;
     private LocalDate startDate;
     private LocalDate endDate;

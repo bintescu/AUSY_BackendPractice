@@ -19,6 +19,4 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     @Query(value = "SELECT * FROM employees e where e.department_id = :departmentid order by salary",nativeQuery = true)
     List<Employee> findAllByDepartmentdOrderBySalary(@Param("departmentid") int department);
 
-//    @Query(value = "Select * from employees start with id = :id connect by PRIOR id = manager_id",nativeQuery = true)
-////    List<Employee> findAllEmployeesHierarchicalFromManager(int managerId);
 }

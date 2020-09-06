@@ -10,14 +10,13 @@ import com.ausy.backend.repositories.JobCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-
+    long start = System.currentTimeMillis();
+    Map<Employee, Boolean> subordinateChecks = new HashMap<>();
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -177,6 +176,66 @@ public class EmployeeService {
                 employeeRepository.save(employee);
         }
 
+    }
+    public boolean thereIsAManger(Set<Employee> employees){
+        for (Employee e: employees) {
+            if(e.isManager()== true)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean findSubordinatesForManager(Employee manager,Set<Employee> employees) {
+      if(manager.isManager()) {
+          employees.addAll(findAll().stream().filter(e -> e.getManagerId() == manager).collect(Collectors.toSet()));
+          employees.stream().filter(e -> subordinateChecks.containsKey(e) == false).forEach(e -> subordinateChecks.put(e,false));
+              subordinateChecks.put(manager,true);
+          System.out.println(subordinateChecks);
+          return true;
+      }
+      else {
+          if(subordinateChecks.containsKey(manager)){
+              subordinateChecks.replace(manager,false,true);
+          }
+          return false;
+      }
+
+
+
+    }
+
+
+    public Employee existAnyUncheckedSubordinate(Set<Employee> subordinates) {
+        for (Employee e: subordinates) {
+            try {
+                if(subordinateChecks.get(e).booleanValue() == false){
+                    return e;
+                }
+            }catch (NullPointerException n){
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    public void checkManager(Employee e){
+        subordinateChecks.containsKey(e);
+    }
+    public Set<Employee> findHierarchyOfEmployeesStartWithManagerID(int managerId) throws ErrorResponse {
+        Employee manager = findEmployeeById(managerId);
+        if (findEmployeeById(managerId) == null || manager == null) {
+            throw new ErrorResponse("Not a valid id for any managers", 404);
+        }
+        Set<Employee> subordinates = new HashSet<>();
+        findSubordinatesForManager(manager,subordinates);
+        while (existAnyUncheckedSubordinate(subordinates) != null){
+            findSubordinatesForManager(existAnyUncheckedSubordinate(subordinates), subordinates);
+        }
+        Set<Employee> finalSet = new HashSet<>();
+        finalSet.add(manager);
+        finalSet.addAll(subordinates);
+        return finalSet;
     }
 
 }

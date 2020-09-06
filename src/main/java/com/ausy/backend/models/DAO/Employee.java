@@ -125,22 +125,22 @@ public class Employee {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", jobCategory=" + jobCategory +
-                ", department=" + department +
-                ", isManager=" + isManager +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", active=" + active +
-                ", address='" + address + '\'' +
-                ", CP='" + CP + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday=" + birthday +
-                ", noChildren=" + noChildren +
-                ", salary=" + salary +
-                ", studies='" + studies + '\'' +
-                ", socialSecurityNumber='" + socialSecurityNumber + '\'' +
-                ", hasDrivingLicense=" + hasDrivingLicense +
+//                ", jobCategory=" + jobCategory +
+//                ", department=" + department +
+//                ", isManager=" + isManager +
+//                ", startDate=" + startDate +
+//                ", endDate=" + endDate +
+//                ", active=" + active +
+//                ", address='" + address + '\'' +
+//                ", CP='" + CP + '\'' +
+//                ", telephone='" + telephone + '\'' +
+//                ", email='" + email + '\'' +
+//                ", birthday=" + birthday +
+//                ", noChildren=" + noChildren +
+//                ", salary=" + salary +
+//                ", studies='" + studies + '\'' +
+//                ", socialSecurityNumber='" + socialSecurityNumber + '\'' +
+//                ", hasDrivingLicense=" + hasDrivingLicense +
                 '}';
     }
 
